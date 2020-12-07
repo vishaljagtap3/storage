@@ -23,7 +23,7 @@ public class ExtStorageAct extends AppCompatActivity {
 
         Picasso.get()
                 .load("http://bitcode.in/images/gallery/bitcode_galary_iphone_app_development_1.jpg")
-                .centerCrop()
+                //.centerCrop()
                 .error(R.drawable.img2)
                 .placeholder(R.drawable.img7)
                 .into(imageView);
