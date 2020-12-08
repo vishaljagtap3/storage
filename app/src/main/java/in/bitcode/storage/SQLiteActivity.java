@@ -16,10 +16,40 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SQLiteActivity extends AppCompatActivity {
 
+
     SQLiteDatabase db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        /*
+        mt("Act : onCreate");
+        StudentsDBHelper dbHelper =
+                new StudentsDBHelper(
+                        this,
+                        "db_students",
+                        null,
+                        2
+                );
+
+        db = dbHelper.getWritableDatabase();
+        db.close();
+        */
+
+        //DBUtil dbUtil = new DBUtil(this);
+        DBUtil dbUtil = DBUtil.getInstance(this);
+        dbUtil.addStudent(55, "GG", 69);
+        ArrayList<Student> students = dbUtil.getStudents();
+
+
+
+
+
+    }
+
+
+    protected void onCreate1(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         db = openOrCreateDatabase(
@@ -55,6 +85,12 @@ public class SQLiteActivity extends AppCompatActivity {
         insQuery = "insert into students values(?, ?, ?)";
         db.rawQuery(insQuery, new String[] {"25", "FF", "88" });*/
 
+        populate();
+        updateStudent(44, "New DD Name", 48);
+        mt("-------------------------------");
+        populate();
+        deleteStudent(44);
+        mt("-------------------------------");
         populate();
 
 
@@ -120,5 +156,30 @@ public class SQLiteActivity extends AppCompatActivity {
 
     private void mt(String text) {
         Log.e("tag", text);
+    }
+
+    private void updateStudent(int id, String name, int marks) {
+
+        ContentValues values = new ContentValues();
+        values.put("name", name);
+        values.put("marks", marks);
+
+        int count = db.update("students", values, "id = ?", new String[] { id + ""});
+        if(count > 0 ) {
+            mt("update successful");
+        }
+        else {
+            mt("update failed");
+        }
+    }
+
+    private void deleteStudent(int id) {
+        int count = db.delete("students", "id = ?", new String[] { id + ""});
+        if(count > 0 ) {
+            mt("delete successful");
+        }
+        else {
+            mt("delete failed");
+        }
     }
 }
