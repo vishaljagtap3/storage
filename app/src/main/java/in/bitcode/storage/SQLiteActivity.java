@@ -40,6 +40,10 @@ public class SQLiteActivity extends AppCompatActivity {
         //DBUtil dbUtil = new DBUtil(this);
         DBUtil dbUtil = DBUtil.getInstance(this);
         dbUtil.addStudent(55, "GG", 69);
+        dbUtil.addStudent(22, "BB", 68);
+        dbUtil.addStudent(11, "AA", 89);
+        dbUtil.addStudent(44, "DD", 84);
+        dbUtil.addStudent(33, "CC", 92);
         ArrayList<Student> students = dbUtil.getStudents();
 
 
